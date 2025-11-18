@@ -122,3 +122,11 @@ Im GitHub-Repo:
 3.  Content type: `application/json`
 4.  Secret: Die geheime Kombination, die du im ".env" unter `W_SECRET` gesetzt hast
 5.  **Add webhook**
+
+## ✅ 5. Website testen
+1. Rufe die URL http://<username_pythonanywhere>.pythonanywhere.com auf.
+2. Siehst du ein Login? Klicke auf registrieren und registriere einen User
+3. Falls du noch eine Message siehst, Welcome to Flask! führe folgenden Befehl in einer Bash Console aus:
+     ```bash
+    touch /var/www/<username_pythonanywhere>_pythonanywhere_com_wsgi.py
+    ```
