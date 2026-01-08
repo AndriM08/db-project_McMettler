@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <h2 class="page-title">Profil (Use Case 1)</h2>
+
+  <form method="post" action="{{ url_for('profil_save') }}">
+    <label>Name</label>
+    <input class="form-control" name="name" required
+           value="{{ profil.name if profil else '' }}">
+
+    <label>Gewicht (kg)</label>
+    <input class="form-control" name="gewicht_kg" required
+           value="{{ profil.gewicht_kg if profil else '' }}">
+
+    <label>Grösse (cm) (optional)</label>
+    <input class="form-control" name="groesse_cm"
+           value="{{ profil.groesse_cm if profil and profil.groesse_cm else '' }}">
+
+    <label>Aktivitätslevel</label>
+    <select class="form-control" name="aktivitaetslevel">
+      <option value="niedrig">niedrig</option>
+      <option value="mittel" selected>mittel</option>
+      <option value="hoch">hoch</option>
+    </select>
+
+    <label>Ziel</label>
+    <select class="form-control" name="ziel">
+      <option value="bulk">Bulk</option>
+      <option value="cut">Cut</option>
+      <option value="balanced" selected>Balanced</option>
+      <option value="erhaltung">Erhaltung</option>
+    </select>
+
+    <button class="btn btn-primary" type="submit">Profil speichern</button>
+  </form>
+
+  {% if profil %}
+    <hr>
+    <p><b>Kalorienbedarf:</b> {{ profil.kalorienbedarf }} kcal/Tag</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>Effekt/Ziel zuordnen (für Plan-Generierung)</h3>
+
+  {% if not profil %}
+    <p><b>Bitte zuerst Profil speichern.</b></p>
+  {% else %}
+    <form method="post" action="{{ url_for('profil_effekt_add') }}">
+      <label>Effekt auswählen</label>
+      <select class="form-control" name="effekt_id" required>
+        {% for e in effekte %}
+          <option value="{{ e.effekt_id }}">{{ e.name }}</option>
+        {% endfor %}
+      </select>
+      <button class="btn btn-default" type="submit">Effekt hinzufügen</button>
+    </form>
+
+    <hr>
+    <h4>Deine Effekte</h4>
+    <ul>
+      {% for e in user_effekte %}
+        <li>
+          {{ e.name }}
+          <form method="post" action="{{ url_for('profil_effekt_delete') }}" style="display:inline;">
+            <input type="hidden" name="effekt_id" value="{{ e.effekt_id }}">
+            <button class="btn btn-xs btn-danger" type="submit">X</button>
+          </form>
+        </li>
+      {% else %}
+        <li>Noch kein Effekt gesetzt.</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</div>
+
+{% endblock %}
