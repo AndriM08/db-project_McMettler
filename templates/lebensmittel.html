@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <h2 class="page-title">Lebensmittel (Use Case 2)</h2>
+
+  <form method="post" action="{{ url_for('lebensmittel_add') }}">
+    <label>Name</label>
+    <input class="form-control" name="name" placeholder="z.B. Reis" required>
+
+    <label>Kalorien pro 100g</label>
+    <input class="form-control" name="kalorien_pro_100g" placeholder="z.B. 130" required>
+
+    <label>Proteine pro 100g</label>
+    <input class="form-control" name="proteine_pro_100g" placeholder="z.B. 2.7" required>
+
+    <button class="btn btn-primary" type="submit">Speichern</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Alle Lebensmittel</h3>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th><th>Name</th><th>kcal/100g</th><th>Protein/100g</th>
+    </tr>
+    {% for l in lebensmittel %}
+      <tr>
+        <td>{{ l.lebensmittel_id }}</td>
+        <td>{{ l.name }}</td>
+        <td>{{ l.kalorien_pro_100g }}</td>
+        <td>{{ l.proteine_pro_100g }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4">Noch keine Lebensmittel vorhanden.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}
