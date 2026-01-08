@@ -185,4 +185,48 @@ INSERT INTO Gericht_Effekt (gericht_id, effekt_id) VALUES
 (9, 2),
 (9, 10);
 
-INSERT INTO Gericht_Lebensmittel (gericht_id, lebensmittel_id, m_
+INSERT INTO Gericht_Lebensmittel (gericht_id, lebensmittel_id, menge_gramm) VALUES
+(1, 1, 80.00),
+(1, 2, 120.00),
+(2, 3, 200.00),
+(2, 4, 180.00),
+(3, 5, 250.00),
+(3, 6, 100.00),
+(4, 3, 150.00),
+(4, 17, 200.00),
+(4, 4, 150.00),
+(5, 1, 100.00),
+(5, 14, 200.00),
+(5, 2, 100.00),
+(5, 19, 30.00),
+(6, 8, 150.00),
+(6, 17, 200.00),
+(6, 15, 150.00),
+(6, 16, 50.00),
+(7, 11, 120.00),
+(7, 16, 100.00),
+(7, 18, 50.00),
+(7, 20, 15.00),
+(7, 10, 100.00),
+(8, 12, 200.00),
+(8, 17, 150.00),
+(8, 18, 100.00),
+(8, 16, 50.00),
+(9, 14, 250.00),
+(9, 9, 30.00);
+
+INSERT INTO Ernaehrungsplan (person_id, gericht_id, mahlzeit, tag, von_datum, bis_datum) VALUES
+(1, 1, 'Morgen', 'Montag', '2026-01-05', '2026-01-11'),
+(1, 2, 'Mittag', 'Montag', '2026-01-05', '2026-01-11'),
+(1, 5, 'Abend', 'Montag', '2026-01-05', '2026-01-11'),
+(1, 5, 'Morgen', 'Dienstag', '2026-01-05', '2026-01-11'),
+(1, 6, 'Mittag', 'Dienstag', '2026-01-05', '2026-01-11'),
+(1, 4, 'Abend', 'Dienstag', '2026-01-05', '2026-01-11');
+
+INSERT INTO Ernaehrungsplan (person_id, gericht_id, mahlzeit, tag, von_datum, bis_datum) VALUES
+(2, 3, 'Abend', 'Dienstag', '2026-01-05', '2026-01-11'),
+(2, 7, 'Mittag', 'Montag', '2026-01-05', '2026-01-11'),
+(2, 9, 'Abend', 'Montag', '2026-01-05', '2026-01-11'),
+(2, 3, 'Morgen', 'Dienstag', '2026-01-05', '2026-01-11'),
+(2, 7, 'Mittag', 'Dienstag', '2026-01-05', '2026-01-11'),
+(2, 8, 'Abend', 'Dienstag', '2026-01-05', '2026-01-11');
