@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <h2 class="page-title">Gericht: {{ gericht.name }}</h2>
+  <p><b>Berechnet aus Zutaten:</b> {{ total_kcal }} kcal | {{ total_prot }} g Protein</p>
+  <p><a href="{{ url_for('gerichte') }}">← zurück</a></p>
+</div>
+
+<div class="card">
+  <h3>Zutat hinzufügen</h3>
+
+  <form method="post" action="{{ url_for('gericht_zutat_add', gericht_id=gericht.gericht_id) }}">
+    <label>Lebensmittel</label>
+    <select class="form-control" name="lebensmittel_id" required>
+      {% for l in lebensmittel %}
+        <option value="{{ l.lebensmittel_id }}">{{ l.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Menge (g)</label>
+    <input class="form-control" name="menge_gramm" placeholder="z.B. 150" required>
+
+    <button class="btn btn-primary" type="submit">Zutat speichern</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Zutatenliste</h3>
+  <table class="table table-striped">
+    <tr>
+      <th>Lebensmittel</th><th>Menge (g)</th><th>kcal/100g</th><th>Protein/100g</th>
+    </tr>
+    {% for z in zutaten %}
+      <tr>
+        <td>{{ z.name }}</td>
+        <td>{{ z.menge_gramm }}</td>
+        <td>{{ z.kalorien_pro_100g }}</td>
+        <td>{{ z.proteine_pro_100g }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4">Noch keine Zutaten hinzugefügt.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+<div class="card">
+  <h3>Effekte zuordnen (optional)</h3>
+
+  <form method="post" action="{{ url_for('gericht_effekt_add', gericht_id=gericht.gericht_id) }}">
+    <label>Effekt</label>
+    <select class="form-control" name="effekt_id" required>
+      {% for e in effekte %}
+        <option value="{{ e.effekt_id }}">{{ e.name }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-default" type="submit">Effekt hinzufügen</button>
+  </form>
+
+  <hr>
+  <h4>Aktuelle Effekte</h4>
+  <ul>
+    {% for e in gericht_effekte %}
+      <li>
+        {{ e.name }}
+        <form method="post" action="{{ url_for('gericht_effekt_delete', gericht_id=gericht.gericht_id) }}" style="display:inline;">
+          <input type="hidden" name="effekt_id" value="{{ e.effekt_id }}">
+          <button class="btn btn-xs btn-danger" type="submit">X</button>
+        </form>
+      </li>
+    {% else %}
+      <li>Noch keine Effekte zugeordnet.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
