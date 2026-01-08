@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <h2 class="page-title">Ernährungsplan (Use Case 4)</h2>
+
+  <form method="post" action="{{ url_for('plan_generate') }}">
+    <label>Von Datum (YYYY-MM-DD)</label>
+    <input class="form-control" name="von_datum" placeholder="2026-01-05" required>
+
+    <label>Bis Datum (YYYY-MM-DD)</label>
+    <input class="form-control" name="bis_datum" placeholder="2026-01-11" required>
+
+    <button class="btn btn-primary" type="submit">Plan generieren</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Plan anzeigen</h3>
+  <table class="table table-striped">
+    <tr>
+      <th>Tag</th><th>Mahlzeit</th><th>Gericht</th><th>Von</th><th>Bis</th>
+    </tr>
+    {% for p in plan %}
+      <tr>
+        <td>{{ p.tag }}</td>
+        <td>{{ p.mahlzeit }}</td>
+        <td>{{ p.gericht }}</td>
+        <td>{{ p.von_datum }}</td>
+        <td>{{ p.bis_datum }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">Noch kein Plan vorhanden. Generiere zuerst einen Plan.</td></tr>
+    {% endfor %}
+  </table>
+</div>
+
+<div class="card">
+  <h3>Export (Use Case 5)</h3>
+  <p>Exportiert den Plan für einen Zeitraum als CSV.</p>
+
+  <form method="get" action="{{ url_for('plan_export_csv') }}">
+    <label>Von Datum (YYYY-MM-DD)</label>
+    <input class="form-control" name="von_datum" placeholder="2026-01-05" required>
+
+    <label>Bis Datum (YYYY-MM-DD)</label>
+    <input class="form-control" name="bis_datum" placeholder="2026-01-11" required>
+
+    <button class="btn btn-default" type="submit">CSV Export</button>
+  </form>
+</div>
+
+{% endblock %}
