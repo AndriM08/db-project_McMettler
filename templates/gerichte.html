@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <h2 class="page-title">Gerichte (Use Case 3)</h2>
+
+  <form method="post" action="{{ url_for('gerichte_add') }}">
+    <label>Neues Gericht</label>
+    <input class="form-control" name="name" placeholder="z.B. Haferflocken Bowl" required>
+    <button class="btn btn-primary" type="submit">Gericht hinzufügen</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Gericht auswählen</h3>
+  <ul>
+    {% for g in gerichte %}
+      <li>
+        <a href="{{ url_for('gericht_detail', gericht_id=g.gericht_id) }}">
+          {{ g.name }}
+        </a>
+      </li>
+    {% else %}
+      <li>Noch keine Gerichte vorhanden.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
