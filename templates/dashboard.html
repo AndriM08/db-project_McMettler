@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+  <h2 class="page-title">Dashboard</h2>
+
+  <p>Willkommen beim Ernährungsplaner.</p>
+
+  {% if profil %}
+    <p><b>Profil vorhanden:</b> {{ profil.name }} (Kalorienbedarf: {{ profil.kalorienbedarf }} kcal/Tag)</p>
+    <p>
+      <a class="btn btn-primary" href="{{ url_for('plan') }}">Zum Ernährungsplan</a>
+      <a class="btn btn-default" href="{{ url_for('profil') }}">Profil bearbeiten</a>
+    </p>
+  {% else %}
+    <p><b>Hinweis:</b> Du hast noch kein Profil gespeichert.</p>
+    <a class="btn btn-primary" href="{{ url_for('profil') }}">Profil erstellen</a>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h3>Navigation</h3>
+  <ul>
+    <li><a href="{{ url_for('profil') }}">Profil (Use Case 1)</a></li>
+    <li><a href="{{ url_for('lebensmittel') }}">Lebensmittel (Use Case 2)</a></li>
+    <li><a href="{{ url_for('gerichte') }}">Gerichte (Use Case 3)</a></li>
+    <li><a href="{{ url_for('plan') }}">Ernährungsplan (Use Case 4/5)</a></li>
+  </ul>
+</div>
+
+{% endblock %}
